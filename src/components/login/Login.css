@@ -1,0 +1,32 @@
+@import "antd/dist/antd.css";
+
+.site-form-item-icon {
+  margin-right: 8px;
+}
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.ant-col-rtl .login-form-forgot {
+  float: left;
+}
+
+.login-form-button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.image_picker {
+  margin-left: -60px;
+  display: flex;
+  min-width: 500px;
+  grid-row-gap: 8px;
+  flex-wrap: wrap;
+}
+.image_picker .responsive {
+  margin-top: 8px;
+}
