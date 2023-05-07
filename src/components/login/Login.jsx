@@ -24,25 +24,34 @@ const imageList = [image1, image2, image3, image4, image5, image6, image7, image
 function Login() {
   const navigation = useNavigate();
   const location = useLocation();
-  const [max_images, setMaxImages] = useState(9);
+  const [max_images, setMaxImages] = useState(6);
   var usernameLogin = location.state.username;
+  var list = location.state.list;
   const [setMaxMessages] = useState(6);
+  console.log(list);
   var listImages = [];
-  imageList.forEach((element) => {
-    listImages.push(`http://localhost:5000/static/${element}`);
+  var listImagesDisplay = [];
+  //imageList.forEach((element, index) => {
+  list.forEach((i, index1) => {
+    let image = i.image;
+    //if (image === element) {
+    let url = `images_watermark/${image}`;
+    listImages.push(image);
+    listImagesDisplay.push({
+      src: url,
+      value: i.text,
+    });
   });
-  // imageList.forEach((element) => {
-  //   setTimeout(getImage(usernameLogin, element, listImages), 10);
+  //});
+  //});
+  // var array1 = imageList.filter((n) => !listImages.includes(n));
+  // array1.forEach((element) => {
+  //   listImagesDisplay.push({
+  //     src: `images_watermark/${element}`,
+  //     value: Math.random().toString(36).substring(2, 7),
+  //   });
   // });
 
-  console.log(listImages);
-  var listImagesDisplay = [];
-  for (let i = 0; i < 9; i++) {
-    listImagesDisplay.push({
-      src: listImages[i],
-      value: i,
-    });
-  }
   console.log('listImagesDisplay');
   console.log(listImagesDisplay);
   function onPickImagesWithLimit(max_images) {
@@ -57,14 +66,13 @@ function Login() {
     setMaxMessages(max_message);
   }
   const onClickSubmit = (values) => {
-    let listImages = [];
+    let listTextRandomRSA = [];
     max_images.forEach((element) => {
-      listImages.push(element.src);
+      listTextRandomRSA.push(element.value);
     });
-    console.log(listImages);
     let data = {
       username: usernameLogin,
-      password: listImages,
+      listTextRandomRSA: listTextRandomRSA,
     };
     axios
       .post(`/login`, data)
