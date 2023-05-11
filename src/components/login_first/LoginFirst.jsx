@@ -2,8 +2,10 @@ import React from 'react';
 import './Login.css';
 import { Form, Input, Button, Row, Col, notification } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../api/axios';
+import { shuffle } from 'utils/utils';
+import { embedMessage } from 'utils/water.mark1';
 const backgroundImage = `/images/background_login_first.png`;
 const image1 = `image_1.jpg`;
 const image2 = `image_2.jpg`;
@@ -15,22 +17,7 @@ const image7 = `image_7.jpg`;
 const image8 = `image_8.jpg`;
 const image9 = `image_9.jpg`;
 const imageList = [image1, image2, image3, image4, image5, image6, image7, image8, image9];
-function shuffle(array) {
-  let currentIndex = array.length,
-    randomIndex;
 
-  // While there remain elements to shuffle.
-  while (currentIndex !== 0) {
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
-}
 function LoginFirst() {
   const navigation = useNavigate();
 
@@ -71,6 +58,7 @@ function LoginFirst() {
             text: Math.random().toString(36).substring(2, 7),
           });
         });
+
         var list1 = shuffle(list);
         setTimeout(() => {
           navigation('/login', {

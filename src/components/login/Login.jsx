@@ -17,9 +17,6 @@ const image7 = `image_7.jpg`;
 const image8 = `image_8.jpg`;
 const image9 = `image_9.jpg`;
 const imageList = [image1, image2, image3, image4, image5, image6, image7, image8, image9];
-// function getImage(username, fileName, listImages) {
-//   axios.get(`/${username}/${fileName}`).then((res) => {});
-// }
 
 function Login() {
   const navigation = useNavigate();
@@ -28,13 +25,10 @@ function Login() {
   var usernameLogin = location.state.username;
   var list = location.state.list;
   const [setMaxMessages] = useState(6);
-  console.log(list);
   var listImages = [];
   var listImagesDisplay = [];
-  //imageList.forEach((element, index) => {
-  list.forEach((i, index1) => {
+  list.forEach((i) => {
     let image = i.image;
-    //if (image === element) {
     let url = `images_watermark/${image}`;
     listImages.push(image);
     listImagesDisplay.push({
@@ -42,18 +36,7 @@ function Login() {
       value: i.text,
     });
   });
-  //});
-  //});
-  // var array1 = imageList.filter((n) => !listImages.includes(n));
-  // array1.forEach((element) => {
-  //   listImagesDisplay.push({
-  //     src: `images_watermark/${element}`,
-  //     value: Math.random().toString(36).substring(2, 7),
-  //   });
-  // });
 
-  console.log('listImagesDisplay');
-  console.log(listImagesDisplay);
   function onPickImagesWithLimit(max_images) {
     setMaxImages(max_images);
     console.log('max_images: ');

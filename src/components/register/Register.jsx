@@ -1,59 +1,68 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { useNavigate } from 'react-router-dom';
-import { Form, Input, Tooltip, Checkbox, Button, notification } from 'antd';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Form, Tooltip, Button, notification, Row, Col } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Container } from '@material-ui/core';
+import { shuffle } from 'utils/utils';
+import ImagePicker from 'react-image-picker';
 import './register.css';
-import Axios from 'axios';
+import 'react-image-picker/dist/index.css';
+import axios from '../../api/axios';
 
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
+const backgroundImage = `/images/background_login_first.png`;
+const image1 = `image_1.jpg`;
+const image2 = `image_2.jpg`;
+const image3 = `image_3.jpg`;
+const image4 = `image_4.jpg`;
+const image5 = `image_5.jpg`;
+const image6 = `image_6.jpg`;
+const image7 = `image_7.jpg`;
+const image8 = `image_8.jpg`;
+const image9 = `image_9.jpg`;
+const imageList = [image1, image2, image3, image4, image5, image6, image7, image8, image9];
 
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
+var listImageDisplay = [];
+imageList.forEach((image) => {
+  listImageDisplay.push({
+    src: `images/${image}`,
+    value: image,
+  });
+  listImageDisplay = shuffle(listImageDisplay);
+});
 function UserRegister(props) {
-  const [form] = Form.useForm();
   const navigation = useNavigate();
+  const [max_images, setMaxImages] = useState(6);
+  const [setMaxMessages] = useState(6);
+  const [username, setUsername] = useState('');
+  const handleChangeUsername = (event) => {
+    setUsername(event.target.value);
+  };
 
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    let body = {
-      username: values.username,
-      password: values.password,
-      fullName: values.fullName,
+  function onPickImagesWithLimit(max_images) {
+    setMaxImages(max_images);
+    console.log('max_images: ');
+    console.log(max_images);
+  }
+  function onPickMaxImages(last_image) {
+    let image = JSON.stringify(last_image);
+    let max_message = `Max images reached. ${image}`;
+    setMaxMessages(max_message);
+  }
+
+  var listUrlImage = [];
+  const onClickSubmit = (values) => {
+    max_images.forEach((element) => {
+      listUrlImage.push(element.value);
+    });
+    let data = {
+      username: username,
+      listUrlImage: listUrlImage,
+      fullName: 'None',
     };
-    console.log('body ', body);
-    Axios.post(`/register`, body)
+    console.log(data.listUrlImage);
+    axios
+      .post(`/register`, data)
       .then((res) => {
-        console.log('res ', res.data);
+        console.log('response ', res.data);
         notification.success({
           message: 'Register successfully!',
           style: {
@@ -63,11 +72,10 @@ function UserRegister(props) {
           duration: 2,
         });
         setTimeout(() => {
-          navigation('/login');
+          navigation('/');
         }, 500);
       })
       .catch((err) => {
-        console.log('err ', err);
         notification.error({
           message: 'Register fail!',
           style: {
@@ -79,30 +87,44 @@ function UserRegister(props) {
       });
   };
   return (
-    <Container
+    <div
+      className="wrap-container-login"
       style={{
-        display: 'flex',
-        justifyContent: 'center',
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        height: '100vh',
       }}
     >
-      <div className="register">
-        <div className="title-register">Register user</div>
-        <div className="form">
+      <Row>
+        <Col span={4}></Col>
+        <Col
+          span={16}
+          style={{
+            marginTop: '100px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            borderRadius: '10%',
+          }}
+        >
           <Form
-            {...formItemLayout}
-            form={form}
-            name="register"
-            onFinish={onFinish}
-            scrollToFirstError
-            style={{ paddingRight: 136 }}
-            autoComplete="off"
+            name="normal_login"
+            className="login-form"
+            initialValues={{
+              remember: false,
+            }}
+            style={{ minWidth: '300px' }}
           >
             <Form.Item
               name="username"
+              className="register-username"
               label={
                 <span>
                   Nickname&nbsp;
-                  <Tooltip title="Username login">
+                  <Tooltip title="Username register">
                     <QuestionCircleOutlined />
                   </Tooltip>
                 </span>
@@ -123,61 +145,28 @@ function UserRegister(props) {
                 },
               ]}
             >
-              <Input />
+              <input type="text" id="username" name="username" onChange={handleChangeUsername} value={username} />
             </Form.Item>
 
-            <Form.Item
-              name="password"
-              label="Password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your password!',
-                },
-                {
-                  min: 8,
-                  message: 'The length must not be less than 8 characters!',
-                },
-              ]}
-              hasFeedback
-            >
-              <Input.Password />
-            </Form.Item>
+            <ImagePicker
+              images={listImageDisplay.map((image, i) => ({ src: image.src, value: image.value }))}
+              onPick={onPickImagesWithLimit}
+              maxPicks={6}
+              onMaxPicks={onPickMaxImages}
+              multiple
+            />
+            <h3 style={{ marginTop: '10px', marginLeft: '28px' }}>Please select up to 6 photos to register</h3>
 
-            <Form.Item
-              name="fullName"
-              label="Full Name"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your full name',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              name="agreement"
-              valuePropName="checked"
-              rules={[
-                {
-                  validator: (_, value) => (value ? Promise.resolve() : Promise.reject('Should accept agreement')),
-                },
-              ]}
-              {...tailFormItemLayout}
-            >
-              <Checkbox>You must comply with our rules</Checkbox>
-            </Form.Item>
-
-            <Form.Item {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit">
+            <Form.Item style={{ marginTop: '32px', marginLeft: '32px' }}>
+              <Button type="primary" onClick={onClickSubmit} className="login-form-button">
                 Register
               </Button>
+              <Link to="/register">Login</Link>
             </Form.Item>
           </Form>
-        </div>
-      </div>
-    </Container>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
