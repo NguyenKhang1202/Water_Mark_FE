@@ -16,7 +16,36 @@ const image6 = `image_6.jpg`;
 const image7 = `image_7.jpg`;
 const image8 = `image_8.jpg`;
 const image9 = `image_9.jpg`;
-const imageList = [image1, image2, image3, image4, image5, image6, image7, image8, image9];
+const image10 = `image_11.jpg`;
+const image11 = `image_11.jpg`;
+const image12 = `image_12.jpg`;
+const image13 = `image_13.jpg`;
+const image14 = `image_14.jpg`;
+const image15 = `image_15.jpg`;
+const image16 = `image_16.jpg`;
+const image17 = `image_17.jpg`;
+const image18 = `image_18.jpg`;
+
+const imageList = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+  image8,
+  image9,
+  image10,
+  image11,
+  image12,
+  image13,
+  image14,
+  image15,
+  image16,
+  image17,
+  image18,
+];
 
 function Login() {
   const navigation = useNavigate();
