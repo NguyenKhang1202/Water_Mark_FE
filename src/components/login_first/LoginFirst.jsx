@@ -5,14 +5,14 @@ import { UserOutlined } from '@ant-design/icons';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../api/axios';
 import { shuffle } from 'utils/utils';
-import { embedMessage } from 'utils/water.mark1';
+import { embedMessage } from 'utils/water.mark';
 const backgroundImage = `/images/background_login_first.png`;
-const image1 = `image_1.jpg`;
-const image2 = `image_2.jpg`;
-const image3 = `image_3.jpg`;
-const image4 = `image_4.jpg`;
-const image5 = `image_5.jpg`;
-const image6 = `image_6.jpg`;
+const image1 = `image_1.png`;
+const image2 = `image_2.png`;
+const image3 = `image_3.png`;
+const image4 = `image_4.png`;
+const image5 = `image_5.png`;
+const image6 = `image_6.png`;
 const image7 = `image_7.jpg`;
 const image8 = `image_8.jpg`;
 const image9 = `image_9.jpg`;
@@ -85,7 +85,7 @@ function LoginFirst() {
         for (let i = 1; i <= 3; i++) {
           list.push({
             image: array1[i],
-            text: Math.random().toString(36).substring(2, 7),
+            text: Math.random().toString(36).substring(2, 8),
           });
         }
 

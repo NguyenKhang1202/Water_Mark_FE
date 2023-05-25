@@ -5,14 +5,15 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from '../../api/axios';
 import ImagePicker from 'react-image-picker';
 import 'react-image-picker/dist/index.css';
+import { extractLSBFromImage } from '../../utils/water.mark.js';
 
 const backgroundImage = `/images/background_login_first.png`;
-const image1 = `image_1.jpg`;
-const image2 = `image_2.jpg`;
-const image3 = `image_3.jpg`;
-const image4 = `image_4.jpg`;
-const image5 = `image_5.jpg`;
-const image6 = `image_6.jpg`;
+const image1 = `image_1.png`;
+const image2 = `image_2.png`;
+const image3 = `image_3.png`;
+const image4 = `image_4.png`;
+const image5 = `image_5.png`;
+const image6 = `image_6.png`;
 const image7 = `image_7.jpg`;
 const image8 = `image_8.jpg`;
 const image9 = `image_9.jpg`;
@@ -58,7 +59,7 @@ function Login() {
   var listImagesDisplay = [];
   list.forEach((i) => {
     let image = i.image;
-    let url = `images_watermark/${image}`;
+    let url = `http://localhost:5000/static/${image}`;
     listImages.push(image);
     listImagesDisplay.push({
       src: url,
@@ -79,9 +80,18 @@ function Login() {
   }
   const onClickSubmit = (values) => {
     let listTextRandomRSA = [];
-    max_images.forEach((element) => {
-      listTextRandomRSA.push(element.value);
-    });
+    // max_images.forEach((element) => {
+    //   extractLSBFromImage();
+    //   listTextRandomRSA.push(element.value);
+    // });
+
+    for (let i = 0; i <= 5; i++) {
+      let element = max_images[i];
+      listTextRandomRSA[i] = extractLSBFromImage(element.src);
+      console.log(listTextRandomRSA[i]);
+    }
+
+    console.log(listTextRandomRSA);
     let data = {
       username: usernameLogin,
       listTextRandomRSA: listTextRandomRSA,
