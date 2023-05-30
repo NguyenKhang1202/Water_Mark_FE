@@ -5,7 +5,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../api/axios';
 import { shuffle } from 'utils/utils';
-import { embedMessage } from 'utils/water.mark';
+
 const backgroundImage = `/images/background_login_first.png`;
 const image1 = `image_1.png`;
 const image2 = `image_2.png`;
@@ -13,18 +13,18 @@ const image3 = `image_3.png`;
 const image4 = `image_4.png`;
 const image5 = `image_5.png`;
 const image6 = `image_6.png`;
-const image7 = `image_7.jpg`;
-const image8 = `image_8.jpg`;
-const image9 = `image_9.jpg`;
-const image10 = `image_11.jpg`;
-const image11 = `image_11.jpg`;
-const image12 = `image_12.jpg`;
-const image13 = `image_13.jpg`;
-const image14 = `image_14.jpg`;
-const image15 = `image_15.jpg`;
-const image16 = `image_16.jpg`;
-const image17 = `image_17.jpg`;
-const image18 = `image_18.jpg`;
+const image7 = `image_7.png`;
+const image8 = `image_8.png`;
+const image9 = `image_9.png`;
+const image10 = `image_10.png`;
+const image11 = `image_11.png`;
+const image12 = `image_12.png`;
+const image13 = `image_13.png`;
+const image14 = `image_14.png`;
+const image15 = `image_15.png`;
+const image16 = `image_16.png`;
+const image17 = `image_17.png`;
+const image18 = `image_18.png`;
 
 const imageList = [
   image1,
