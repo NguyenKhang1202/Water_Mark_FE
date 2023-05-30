@@ -193,7 +193,7 @@ function UserRegister(props) {
               <Button type="primary" onClick={onClickSubmit} className="login-form-button">
                 Register
               </Button>
-              <Link to="/register">Login</Link>
+              <Link to="/">Login</Link>
             </Form.Item>
           </Form>
         </Col>

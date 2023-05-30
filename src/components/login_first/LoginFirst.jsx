@@ -163,6 +163,7 @@ function LoginFirst() {
                 Confirm
               </Button>
             </Form.Item>
+            <Link to="/register">Register</Link>
           </Form>
         </Col>
       </Row>
