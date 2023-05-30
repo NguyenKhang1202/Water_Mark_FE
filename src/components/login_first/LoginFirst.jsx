@@ -5,17 +5,18 @@ import { UserOutlined } from '@ant-design/icons';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../api/axios';
 import { shuffle } from 'utils/utils';
+import { generateRandomString } from 'utils/genRandomText';
 
 const backgroundImage = `/images/background_login_first.png`;
-const image1 = `image_1.png`;
-const image2 = `image_2.png`;
-const image3 = `image_3.png`;
-const image4 = `image_4.png`;
-const image5 = `image_5.png`;
-const image6 = `image_6.png`;
-const image7 = `image_7.png`;
-const image8 = `image_8.png`;
-const image9 = `image_9.png`;
+const image1 = `image_01.png`;
+const image2 = `image_02.png`;
+const image3 = `image_03.png`;
+const image4 = `image_04.png`;
+const image5 = `image_05.png`;
+const image6 = `image_06.png`;
+const image7 = `image_07.png`;
+const image8 = `image_08.png`;
+const image9 = `image_09.png`;
 const image10 = `image_10.png`;
 const image11 = `image_11.png`;
 const image12 = `image_12.png`;
@@ -85,7 +86,7 @@ function LoginFirst() {
         for (let i = 1; i <= 3; i++) {
           list.push({
             image: array1[i],
-            text: Math.random().toString(36).substring(2, 8),
+            text: generateRandomString(),
           });
         }
 
